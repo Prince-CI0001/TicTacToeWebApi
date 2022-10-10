@@ -6,7 +6,7 @@ namespace TicTacToe.Core
         private char player = 'O', opponent = 'X';
         private char Computer = 'O';
         private char Human = 'X';
-        static char[,] board = new char[,] {
+        static char[,] boardMatrix = new char[,] {
                                             { '_','_','_' },
                                             { '_','_','_' },
                                             { '_','_','_' }
@@ -17,13 +17,13 @@ namespace TicTacToe.Core
         {
             int r = location[0] - '0';
             int c = location[1] - '0';
-            board[r, c] = Human;
-            Step bestMove = findBestMove(board);
+            boardMatrix[r, c] = Human;
+            Step bestMove = findBestMove(boardMatrix);
             if (bestMove.row == -1 && bestMove.column == -1)
             {
                 return "";                
             }
-            board[bestMove.row, bestMove.column] = Computer;
+            boardMatrix[bestMove.row, bestMove.column] = Computer;
             var compIndex = bestMove.row.ToString() + bestMove.column.ToString();
             return compIndex;
 
@@ -222,7 +222,7 @@ namespace TicTacToe.Core
             {
                 for(int j=0;j<3;j++)
                 {
-                    board[i, j] = '_';
+                    boardMatrix[i, j] = '_';
                 }
             }
         }
