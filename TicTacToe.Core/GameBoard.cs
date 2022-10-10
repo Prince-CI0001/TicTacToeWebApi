@@ -3,14 +3,15 @@ namespace TicTacToe.Core
 {
     public class GameBoard : IGameBoard
     {
-        private char player = 'X', opponent = 'O';
-        private char Computer = 'X';
-        private char Human = 'O';
+        private char player = 'O', opponent = 'X';
+        private char Computer = 'O';
+        private char Human = 'X';
         static char[,] board = new char[,] {
                                             { '_','_','_' },
                                             { '_','_','_' },
                                             { '_','_','_' }
         };
+
 
         public string ExecuteMove(string location)
         {
@@ -18,9 +19,14 @@ namespace TicTacToe.Core
             int c = location[1] - '0';
             board[r, c] = Human;
             Step bestMove = findBestMove(board);
+            if (bestMove.row == -1 && bestMove.column == -1)
+            {
+                return "";                
+            }
             board[bestMove.row, bestMove.column] = Computer;
             var compIndex = bestMove.row.ToString() + bestMove.column.ToString();
-            return compIndex; 
+            return compIndex;
+
         }
         private Boolean isMovesLeft(char[,] board)
         {
@@ -165,7 +171,7 @@ namespace TicTacToe.Core
 
         // This will return the best possible
         // move for the player
-        public Step findBestMove(char[,] board)
+        private Step findBestMove(char[,] board)
         {
             int bestVal = -1000;
             Step bestMove = new Step();
@@ -210,7 +216,16 @@ namespace TicTacToe.Core
 
             return bestMove;
         }
-
+        public void EmptyMatrix()
+        {
+            for(int i=0;i<3;i++)
+            {
+                for(int j=0;j<3;j++)
+                {
+                    board[i, j] = '_';
+                }
+            }
+        }
         
     }
 }

@@ -21,5 +21,12 @@ namespace TicTacToe.Web
             map["Id"] = gameBoard.ExecuteMove(location.Trim());
             return Ok(map);
         }
+
+        [HttpGet]
+        public IActionResult EmptyMatrix()
+        {
+            gameBoard.EmptyMatrix();
+            return Ok();
+        }
     }
 }
