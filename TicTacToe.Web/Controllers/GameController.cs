@@ -17,9 +17,9 @@ namespace TicTacToe.Web
         [HttpPost]
         public IActionResult Set([FromBody] string location)
         {
-            Dictionary<string, string> map = new Dictionary<string, string>();
-            map["Id"] = gameBoard.ExecuteMove(location.Trim());
-            return Ok(map);
+           
+            var index = gameBoard.ExecuteMove(location.Trim());
+            return Ok(index);
         }
 
         [HttpGet]
