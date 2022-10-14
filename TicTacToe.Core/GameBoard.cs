@@ -1,8 +1,17 @@
 ﻿using TicTacToe.Contracts;
+using TicTacToe.Contracts.Models;
+
 namespace TicTacToe.Core
 {
     public class GameBoard : IGameBoard
     {
+
+        private readonly IGameRepository _gameRepo;
+
+        public GameBoard(IGameRepository gameRepo)
+        {
+            _gameRepo = gameRepo ?? throw new ArgumentNullException(nameof(gameRepo));
+        }
         private char player = 'O', opponent = 'X';
         private char Computer = 'O';
         private char Human = 'X';
@@ -12,18 +21,31 @@ namespace TicTacToe.Core
                                             { '_','_','_' }
         };
 
-
-        public string ExecuteMove(string location)
+        public void UpdateGameState(char[,] board,int id)
+        {
+            String str = "";
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    str += board[i, j];
+                }
+            }
+                _gameRepo.UpdateGame(str,id);
+        }
+        public string Move(string location,int id)
         {
             int r = location[0] - '0';
             int c = location[1] - '0';
             boardMatrix[r, c] = Human;
+            UpdateGameState(boardMatrix, id);
             Step bestMove = findBestMove(boardMatrix);
             if (bestMove.row == -1 && bestMove.column == -1)
             {
                 return "";                
             }
             boardMatrix[bestMove.row, bestMove.column] = Computer;
+            UpdateGameState(boardMatrix,id);
             var compIndex = bestMove.row.ToString() + bestMove.column.ToString();
             return compIndex;
 
@@ -216,7 +238,7 @@ namespace TicTacToe.Core
 
             return bestMove;
         }
-        public void EmptyMatrix()
+        public void ResetBoard()
         {
             for(int i=0;i<3;i++)
             {

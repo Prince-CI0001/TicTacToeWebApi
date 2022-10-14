@@ -2,8 +2,8 @@
 {
     public interface IGameBoard
     {
-        public string ExecuteMove(string location);
+            public string Move(string location,int id);
 
-        public void EmptyMatrix();
+            public void ResetBoard();
     }
 }

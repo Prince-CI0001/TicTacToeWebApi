@@ -1,32 +1,49 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Numerics;
+using Microsoft.AspNetCore.Mvc;
+using TicTacToe.Contracts;
+using TicTacToe.Contracts.Models;
 using TicTacToe.Core;
 
 namespace TicTacToe.Web
 {
-    [Route("api/[controller]")]
+    [Route("api/Game")]
     [ApiController]
     public class GameController : ControllerBase
     {
-        private readonly GameBoard gameBoard;
-
-        public GameController()
+        private readonly IGameRepository _gameRepository;
+        private readonly IGameBoard _gameBoard;
+        public GameController(IGameRepository gameRepository, IGameBoard gameBoard)
         {
-            gameBoard = new GameBoard();
-         }
+            _gameRepository = gameRepository ??
+                throw new ArgumentNullException(nameof(gameRepository));
+            _gameBoard = gameBoard;
+        }
 
         [HttpPost]
-        public IActionResult Set([FromBody] string location)
+        public Game CreateGame()
+        {
+            var newGame = new Game();
+            _gameBoard.ResetBoard();
+            _gameRepository.AddGame(newGame);
+            _gameRepository.save();
+            return newGame;
+        }
+
+        [HttpPatch("{id}")]
+        public IActionResult UpdateGameState([FromBody] string location, [FromRoute] int id)
         {
            
-            var index = gameBoard.ExecuteMove(location.Trim());
+            var index = _gameBoard.Move(location,id);
             return Ok(index);
         }
 
-        [HttpGet]
-        public IActionResult EmptyMatrix()
+        [HttpPatch("{id}/winner")]
+        public IActionResult UpdateWinner([FromBody] string winner, [FromRoute] int id)
         {
-            gameBoard.EmptyMatrix();
+
+            _gameRepository.Winner(id,winner);
             return Ok();
         }
+        
     }
 }
