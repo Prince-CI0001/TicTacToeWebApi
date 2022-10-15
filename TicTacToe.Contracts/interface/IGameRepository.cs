@@ -17,6 +17,7 @@ namespace TicTacToe.Contracts
 
         void UpdateGame(string state,int id);
 
-        void Winner(int id,string winner);
+        void Winner(int id,Game winner);
     }
 }
+    

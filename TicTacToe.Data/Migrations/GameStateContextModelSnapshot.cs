@@ -33,9 +33,15 @@ namespace TicTacToe.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("oCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("winner")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("xCount")
+                        .HasColumnType("integer");
 
                     b.HasKey("id");
 

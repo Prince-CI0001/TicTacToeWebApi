@@ -38,10 +38,10 @@ namespace TicTacToe.Web
         }
 
         [HttpPatch("{id}/winner")]
-        public IActionResult UpdateWinner([FromBody] string winner, [FromRoute] int id)
+        public IActionResult UpdateWinner([FromBody] Game jsonObj, [FromRoute] int id)
         {
-
-            _gameRepository.Winner(id,winner);
+            Console.WriteLine(jsonObj);
+            _gameRepository.Winner(id,jsonObj);
             return Ok();
         }
         

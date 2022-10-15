@@ -38,10 +38,12 @@ namespace TicTacToe.Data
             _context.SaveChanges();
         }
 
-        public void Winner(int id,string winner)
+        public void Winner(int id,Game jsonObj)
         {
             var game = _context.Games.FirstOrDefault(a => a.id == id);
-            game.winner = winner;
+            game.winner = jsonObj.winner;
+            game.xCount = jsonObj.xCount;
+            game.oCount = jsonObj.oCount;
             _context.SaveChanges();
         }
     }

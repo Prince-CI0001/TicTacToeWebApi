@@ -11,8 +11,8 @@ using TicTacToe.Data;
 namespace TicTacToe.Data.Migrations
 {
     [DbContext(typeof(GameStateContext))]
-    [Migration("20221014163539_initial")]
-    partial class initial
+    [Migration("20221015152358_InitialBase")]
+    partial class InitialBase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,9 +35,15 @@ namespace TicTacToe.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("oCount")
+                        .HasColumnType("integer");
+
                     b.Property<string>("winner")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("xCount")
+                        .HasColumnType("integer");
 
                     b.HasKey("id");
 

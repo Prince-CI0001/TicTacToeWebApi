@@ -15,5 +15,8 @@ namespace TicTacToe.Contracts.Models
         public string Gamestate { get; set; } = "---------";
 
         public string winner { get; set; } = "";
+
+        public int xCount { get; set; } = 0;
+        public int oCount { get; set; } = 0;
     }
 }

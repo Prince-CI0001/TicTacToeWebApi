@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TicTacToe.Data.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialBase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,9 @@ namespace TicTacToe.Data.Migrations
                     id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Gamestate = table.Column<string>(type: "text", nullable: false),
-                    winner = table.Column<string>(type: "text", nullable: false)
+                    winner = table.Column<string>(type: "text", nullable: false),
+                    xCount = table.Column<int>(type: "integer", nullable: false),
+                    oCount = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
