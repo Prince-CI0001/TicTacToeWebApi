@@ -6,7 +6,7 @@ using TicTacToe.Core;
 
 namespace TicTacToe.Web
 {
-    [Route("api/Game")]
+    [Route("api/games")]
     [ApiController]
     public class GameController : ControllerBase
     {
@@ -42,7 +42,7 @@ namespace TicTacToe.Web
         {
             Console.WriteLine(jsonObj);
             _gameRepository.Winner(id,jsonObj);
-            return Ok();
+            return NoContent();
         }
         
     }
